@@ -24,7 +24,7 @@
             $(currentActive).removeClass('active');
             let nextActive = document.getElementById('p' + elem.id);
             $(nextActive).addClass('active');
-            let url = '/events/' + elem.id;
+            let url = '/schedule/' + elem.id;
             $("#eventsBlock").load(url);
         }
     </script>
@@ -72,7 +72,7 @@
         <div class="row"  th:each="i:${#numbers.sequence(0,events.size()-1,2)}">
             <div class="col">
                 <div class="card">
-                    <img src="" class="card-img-top" alt="...">
+                    <img th:src="@{/resources/img/bf.jpg}" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h4 class="card-title" th:text="${events.get(i).getName()}"></h4>
                         <h5 class="card-subtitle" th:text="${events.get(i).getDateAsString()}"></h5>
@@ -85,11 +85,11 @@
             <div class="col" >
                 <div th:if="${i+1}>${events.size()-1}"></div>
                 <div th:unless="${i+1}>${events.size()-1}" class="card">
-                    <img src="" class="card-img-top" alt="...">
+                    <img th:src="@{/img/bf.jpg}" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title" th:text="${events.get(i+1).getName()}"></h5>
-                        <h4 class="card-subtitle" th:text="${events.get(i+1).getDateAsString()}"></h4>
-                        <h4 class="card-subtitle" th:text="${events.get(i+1).getTimeAsString()}"></h4>
+                        <h4 class="card-title" th:text="${events.get(i+1).getName()}"></h4>
+                        <h5 class="card-subtitle" th:text="${events.get(i+1).getDateAsString()}"></h5>
+                        <h5 class="card-subtitle" th:text="${events.get(i+1).getTimeAsString()}"></h5>
                         <p class="card-text" th:text="${events.get(i+1).getDescription()}"></p>
                         <a th:href="@{'/events/' + ${events.get(i+1).getId()}}" class="btn btn-primary">Open</a>
                     </div>

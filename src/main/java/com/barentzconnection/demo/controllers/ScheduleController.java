@@ -22,7 +22,7 @@ public class ScheduleController {
         return "schedulePage";
     }
 
-    @GetMapping(value = "/events/{day}")
+    @GetMapping(value = "/schedule/{day}")
     public String getEventsPerDay(@PathVariable int day, Model model){
         model.addAttribute("events", eventRepository.findAllByDay(day));
         return "results :: eventsPerDay";
