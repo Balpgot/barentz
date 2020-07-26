@@ -40,27 +40,31 @@
 <div class="container-fluid">
     <div class="row" th:fragment="eventsPerDay" th:each="i:${#numbers.sequence(0,events.size()-1,2)}">
         <div class="col">
-            <div class="card">
-                <img src="" class="card-img-top" alt="...">
-                <div class="card-body">
+            <div class="card text-white bg-dark">
+                <img th:src="@{/img/bf.jpg}" class="card-img-top" alt="..." height="300">
+                <div class="card-img-overlay">
+                    <h3 class="card-subtitle" th:text="${events.get(i).getDateAsString()}"></h3>
+                    <h3 class="card-subtitle" th:text="${events.get(i).getTimeAsString()}"></h3>
+                </div>
+                <div class="card-body bg-dark">
                     <h4 class="card-title" th:text="${events.get(i).getName()}"></h4>
-                    <h5 class="card-subtitle" th:text="${events.get(i).getDateAsString()}"></h5>
-                    <h5 class="card-subtitle" th:text="${events.get(i).getTimeAsString()}"></h5>
                     <p class="card-text" th:text="${events.get(i).getDescription()}"></p>
-                    <a th:href="@{'/events/' + ${events.get(i).getId()}}" class="btn btn-primary">Open</a>
+                    <a th:href="${events.get(i).getLink()}" class="btn btn-primary">Open</a>
                 </div>
             </div>
         </div>
         <div class="col" >
             <div th:if="${i+1}>${events.size()-1}"></div>
-            <div th:unless="${i+1}>${events.size()-1}" class="card">
-                <img src="" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${events.get(i+1).getName()}"></h5>
-                    <h4 class="card-subtitle" th:text="${events.get(i+1).getDateAsString()}"></h4>
-                    <h4 class="card-subtitle" th:text="${events.get(i+1).getTimeAsString()}"></h4>
+            <div th:unless="${i+1}>${events.size()-1}" class="card text-white bg-dark">
+                <img th:src="@{/img/bf2.jpg}" class="card-img-top" alt="..." height="300">
+                <div class="card-img-overlay">
+                    <h3 class="card-subtitle" th:text="${events.get(i+1).getDateAsString()}"></h3>
+                    <h3 class="card-subtitle" th:text="${events.get(i+1).getTimeAsString()}"></h3>
+                </div>
+                <div class="card-body ">
+                    <h4 class="card-title" th:text="${events.get(i+1).getName()}"></h4>
                     <p class="card-text" th:text="${events.get(i+1).getDescription()}"></p>
-                    <a th:href="@{'/events/' + ${events.get(i+1).getId()}}" class="btn btn-primary">Open</a>
+                    <a th:href="${events.get(i+1).getLink()}" class="btn btn-primary">Open</a>
                 </div>
             </div>
         </div>

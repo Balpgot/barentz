@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Клиенты</title>
+    <title>Schedule</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 
@@ -29,10 +29,10 @@
         }
     </script>
 </head>
-<body>
-<nav class="navbar navbar-expand-sm bg-light">
+<body th:style="'background:url('+ @{/img/bg.jpg} +'); background-attachment: fixed;'">
+<nav class="navbar navbar-expand-sm bg-dark text-white">
     <a class="navbar-brand" >
-        <img th:src="@{/images/logo.png}" alt="Logo" src="../static/images/logo.png"></a>
+        <img th:src="@{/images/logo.png}" alt="Logo" src="../static/images/logo.png" ></a>
     <ul class="navbar-nav">
         <li class="nav-item">
             <a class="nav-link" th:href="@{/}">Start</a>
@@ -50,48 +50,52 @@
 </nav>
 <div class="container-fluid">
     <nav>
-        <ul class="pagination pagination-lg">
+        <ul class="pagination pagination-lg justify-content-center">
             <li class="page-item active" id="p1">
-                <a class="page-link" id="1" onclick="changeDay(this)" href="#">Day 1.<hr>Opening.</a>
+                <a class="page-link bg-dark text-white" id="1" onclick="changeDay(this)" href="#">Day 1.<hr>Opening.</a>
             </li>
             <li class="page-item" id="p2">
-                <a class="page-link" id="2" onclick="changeDay(this)" href="#">Day 2.<hr>Connect and Learn.</a>
+                <a class="page-link bg-dark text-white" id="2" onclick="changeDay(this)" href="#">Day 2.<hr>Connect and Learn.</a>
             </li>
             <li class="page-item" id="p3">
-                <a class="page-link" id="3" onclick="changeDay(this)" href="#">Day 3.<hr>Connect and Play.</a>
+                <a class="page-link bg-dark text-white" id="3" onclick="changeDay(this)" href="#">Day 3.<hr>Connect and Play.</a>
             </li>
             <li class="page-item" id="p4">
-                <a class="page-link" id="4" onclick="changeDay(this)" href="#">Day 4.<hr>Connect and Teach.</a>
+                <a class="page-link bg-dark text-white" id="4" onclick="changeDay(this)" href="#">Day 4.<hr>Connect and Teach.</a>
             </li>
             <li class="page-item" id="p5">
-                <a class="page-link" id="5" onclick="changeDay(this)" href="#">Day 5.<hr>The last bonfire.</a>
+                <a class="page-link bg-dark text-white" id="5" onclick="changeDay(this)" href="#">Day 5.<hr>The last bonfire.</a>
             </li>
         </ul>
     </nav>
     <div id="eventsBlock">
         <div class="row"  th:each="i:${#numbers.sequence(0,events.size()-1,2)}">
             <div class="col">
-                <div class="card">
-                    <img th:src="@{/resources/img/bf.jpg}" class="card-img-top" alt="...">
-                    <div class="card-body">
+                <div class="card text-white bg-dark">
+                    <img th:src="@{/img/bf.jpg}" class="card-img-top" alt="..." height="300">
+                    <div class="card-img-overlay">
+                        <h3 class="card-subtitle" th:text="${events.get(i).getDateAsString()}"></h3>
+                        <h3 class="card-subtitle" th:text="${events.get(i).getTimeAsString()}"></h3>
+                    </div>
+                    <div class="card-body bg-dark">
                         <h4 class="card-title" th:text="${events.get(i).getName()}"></h4>
-                        <h5 class="card-subtitle" th:text="${events.get(i).getDateAsString()}"></h5>
-                        <h5 class="card-subtitle" th:text="${events.get(i).getTimeAsString()}"></h5>
                         <p class="card-text" th:text="${events.get(i).getDescription()}"></p>
-                        <a th:href="@{'/events/' + ${events.get(i).getId()}}" class="btn btn-primary">Open</a>
+                        <a th:href="${events.get(i).getLink()}" class="btn btn-primary">Open</a>
                     </div>
                 </div>
             </div>
             <div class="col" >
                 <div th:if="${i+1}>${events.size()-1}"></div>
-                <div th:unless="${i+1}>${events.size()-1}" class="card">
-                    <img th:src="@{/img/bf.jpg}" class="card-img-top" alt="...">
-                    <div class="card-body">
+                <div th:unless="${i+1}>${events.size()-1}" class="card text-white bg-dark">
+                    <img th:src="@{/img/bf2.jpg}" class="card-img-top" alt="..." height="300">
+                    <div class="card-img-overlay">
+                        <h3 class="card-subtitle" th:text="${events.get(i+1).getDateAsString()}"></h3>
+                        <h3 class="card-subtitle" th:text="${events.get(i+1).getTimeAsString()}"></h3>
+                    </div>
+                    <div class="card-body ">
                         <h4 class="card-title" th:text="${events.get(i+1).getName()}"></h4>
-                        <h5 class="card-subtitle" th:text="${events.get(i+1).getDateAsString()}"></h5>
-                        <h5 class="card-subtitle" th:text="${events.get(i+1).getTimeAsString()}"></h5>
                         <p class="card-text" th:text="${events.get(i+1).getDescription()}"></p>
-                        <a th:href="@{'/events/' + ${events.get(i+1).getId()}}" class="btn btn-primary">Open</a>
+                        <a th:href="${events.get(i+1).getLink()}" class="btn btn-primary">Open</a>
                     </div>
                 </div>
             </div>

@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Barents Connection</title>
+    <title>Навигация</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 
@@ -19,11 +19,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 <body>
+<div class="container-fluid">
 <nav class="navbar navbar-expand-sm bg-light">
     <a class="navbar-brand" >
-        <img th:src="@{/images/logo.png}" alt="Logo" src="../static/images/logo.png">
-        Barents Connection
-    </a>
+        <img th:src="@{/images/logo.png}" alt="Logo" src="../static/images/logo.png"></a>
     <ul class="navbar-nav">
         <li class="nav-item">
             <a class="nav-link" th:href="@{/}">Start</a>
@@ -34,18 +33,23 @@
         <li class="nav-item">
             <a class="nav-link" th:href="@{/contacts}">Contacts</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" th:if="${#bools.isTrue(auth)}" th:href="@{${'/cabinet/'+ login }}">User's cabinet</a>
+        <li class="nav-item" style="alignment: right">
+            <a class="nav-link" th:href="@{/lgn}">Sign In</a>
         </li>
     </ul>
-    <a th:if="${#bools.isTrue(auth)}" th:href="@{/logout}">Sign Out</a>
-    <a th:unless="${#bools.isTrue(auth)}" th:href="@{/login}">Sign In</a>
 </nav>
-<div class="container-fluid">
-    <h1>Супер марафон</h1>
-    <div>
-        Описание марафона
-    </div>
+<div>
+    <nav>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/admin/users}">Пользователи</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/admin/events}">Мероприятия</a>
+            </li>
+        </ul>
+    </nav>
+</div>
 </div>
 </body>
 </html>

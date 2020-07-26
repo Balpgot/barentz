@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Клиенты</title>
+    <title>Страница пользователя</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 
@@ -32,14 +32,30 @@
         <li class="nav-item">
             <a class="nav-link" th:href="@{/contacts}">Contacts</a>
         </li>
+
         <li class="nav-item">
             <a class="nav-link" th:href="@{/lgn}">Sign In</a>
         </li>
     </ul>
 </nav>
 <div class="container-fluid">
-    <label th:text="${user.getLogin()}"></label>
-    <label th:text="${events.size()}"></label>
+    <table class="table table-hover">
+        <thead class="thead-dark">
+        <tr><th>ID</th><th>Логин</th><th>E-mail</th><th>Страна</th>
+            <th>Кол-во очков</th><th>Админ</th></tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${user.getId()}"></td>
+            <td th:text="${user.getLogin()}"></td>
+            <td th:text="${user.getEmail()}"></td>
+            <td th:text="${user.getCountry()}"></td>
+            <td th:text="${user.getScore()}"></td>
+            <td th:if="${user.isAdmin}" th:text="'+'"></td>
+            <td th:unless="${user.isAdmin}" th:text="''"></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

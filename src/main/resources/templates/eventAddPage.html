@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang=ru
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Добавить событие</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+    <script>
+        function changeDay(elem) {
+            let currentActive = document.getElementsByClassName('page-item active')[0];
+            $(currentActive).removeClass('active');
+            let nextActive = document.getElementById('p' + elem.id);
+            $(nextActive).addClass('active');
+            let url = '/schedule/' + elem.id;
+            $("#eventsBlock").load(url);
+        }
+    </script>
+</head>
+<body th:style="'background:url('+ @{/img/bg.jpg} +');'">
+<nav class="navbar navbar-expand-sm bg-dark text-white">
+    <a class="navbar-brand" >
+        <img th:src="@{/images/logo.png}" alt="Logo" src="../static/images/logo.png"></a>
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/}">Start</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/schedule}">Schedule</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/contacts}">Contacts</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/lgn}">Sign In</a>
+        </li>
+    </ul>
+</nav>
+<div class="container-fluid">
+    <form method="post" class="was-validated">
+        <div class="form-group">
+            <label for="name">Название</label>
+            <input class="form-control" type="text" id="name" th:value="${event.getName()}" th:field="${event.name}" required/>
+            <div class="valid-feedback"></div>
+            <div class="invalid-feedback">Это поле должно быть заполнено</div>
+        </div>
+        <div class="form-group">
+            <label for="category">Категория</label>
+            <select class="form-control" th:field="${event.category}" id="category" size="1" required>
+                <option value="" disabled>Выберите категорию</option>
+                <option value="Sport">Sport</option>
+                <option value="Dance">Dance</option>
+                <option value="Cooking">Cooking</option>
+                <option value="Acting">Acting</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="desc">Описание</label>
+            <textarea id="desc" th:field="${event.description}" required></textarea>
+            <div class="valid-feedback"></div>
+            <div class="invalid-feedback">Это поле должно быть заполнено</div>
+        </div>
+        <div class="form-group">
+            <label for="day">День</label>
+            <input class="form-control" type="text" id="day" th:field="${event.day}" required/>
+            <div class="valid-feedback"></div>
+            <div class="invalid-feedback">Это поле должно быть заполнено</div>
+        </div>
+        <div class="form-group">
+            <label for="date">Дата</label>
+            <input class="form-control" type="text" id="date" th:field="${event.date}" required/>
+            <div class="valid-feedback"></div>
+            <div class="invalid-feedback">Это поле должно быть заполнено</div>
+        </div>
+        <div class="form-group">
+            <label for="time">Время</label>
+            <input class="form-control" type="text" id="time" th:field="${event.time}" required/>
+            <div class="valid-feedback"></div>
+            <div class="invalid-feedback">Это поле должно быть заполнено</div>
+        </div>
+        <div class="form-group">
+            <label for="link">Ссылка</label>
+            <input class="form-control" type="url" id="link" th:field="${event.link}" required/>
+            <div class="valid-feedback"></div>
+            <div class="invalid-feedback">Это поле должно быть заполнено</div>
+        </div>
+        <form method="post" action="/upload" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="img">Картинка</label>
+                <input class="form-control" type="file" id="img"/>
+            </div>
+            <input type="button" value="Загрузить файл" />
+        </form>
+        <input class="btn btn-primary" type="submit" value="Обновить мероприятие"/>
+    </form>
+</div>
+</body>
+</html>

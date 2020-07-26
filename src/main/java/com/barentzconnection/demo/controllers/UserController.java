@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -25,7 +24,7 @@ public class UserController {
         //Login – E-mail – Password – Country – Score – Logged in
         userRepo.saveAndFlush(
                 new UserDAO(
-                        "login",
+                        "user",
                         "email",
                         "pass",
                         "country",
@@ -72,7 +71,12 @@ public class UserController {
         );
     }
 
-    @GetMapping(value = "/user/{login}")
+    @GetMapping(value = "/login")
+    public String userPage(){
+        return "loginPage";
+    }
+
+    @GetMapping(value = "/cabinet/{login}")
     public String userPage(@PathVariable String login, Model model){
         UserDAO user = userRepo.findUserDAOByLogin(login).orElse(null);
         if(user == null){
@@ -80,7 +84,7 @@ public class UserController {
         }
         model.addAttribute("user", user);
         model.addAttribute("events", user.getUserEvents());
-        return "userPage";
+        return "cabinet";
     }
 
 

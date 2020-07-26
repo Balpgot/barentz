@@ -3,7 +3,6 @@ package com.barentzconnection.demo.entities;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.print.attribute.standard.MediaSize;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -44,12 +43,13 @@ public class EventDAO {
         this.imgPath = imgPath;
     }
 
-    public void edit(EventDAO editedEvent){
+    public void edit(EventDTO editedEvent){
         this.name = editedEvent.getName();
         this.category = editedEvent.getCategory();
         this.description = editedEvent.getDescription();
-        this.date = editedEvent.getDate();
-        this.time = editedEvent.getTime();
+        this.day = Integer.parseInt(editedEvent.getDay());
+        this.date = this.date.withDayOfMonth(editedEvent.getDayOfMonth()).withMonth(editedEvent.getMonth());
+        this.time = this.time.withHour(editedEvent.getHour()).withMinute(editedEvent.getMinute());
         this.link = editedEvent.getLink();
         this.imgPath = editedEvent.getImgPath();
     }
@@ -98,5 +98,21 @@ public class EventDAO {
 
     public String getImgPath() {
         return imgPath;
+    }
+
+    @Override
+    public String toString() {
+        return "EventDAO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", category='" + category + '\'' +
+                ", description='" + description + '\'' +
+                ", day=" + day +
+                ", date=" + date +
+                ", time=" + time +
+                ", link='" + link + '\'' +
+                ", imgPath='" + imgPath + '\'' +
+                ", users=" + users +
+                '}';
     }
 }

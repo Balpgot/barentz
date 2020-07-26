@@ -34,6 +34,12 @@ public class UserDAO {
     private Set<EventDAO> userEvents;
 
     public UserDAO(String login, String email, String pass, String country, int i, boolean b) {
+        this.login = login;
+        this.email = email;
+        this.password = pass;
+        this.country = country;
+        this.score = i;
+        this.isAdmin = b;
     }
 
     public void edit(UserDAO editedUser){
