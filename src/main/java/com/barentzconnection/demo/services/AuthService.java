@@ -21,5 +21,4 @@ public class AuthService {
     public static boolean isAuthenticated() {
         return !getUserLogin().equals(WebSecurityConfig.ANONYMOUS);
     }
-
 }

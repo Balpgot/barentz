@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Контакты</title>
+    <title>Пользователи</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 
@@ -33,14 +33,24 @@
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/contacts}">Contacts</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" style="alignment: right">
                 <a class="nav-link" th:href="@{/lgn}">Sign In</a>
             </li>
         </ul>
     </nav>
-    <div class="row">
-        <h2>Даша</h2>
-        <h3>8(800)555-35-35</h3>
+    <div>
+        <table class="table table-hover">
+            <thead class="thead-dark">
+                <tr><th>№</th><th>Login</th><th>Score</th></tr>
+            </thead>
+            <tbody>
+            <tr th:each="i:${#numbers.sequence(0,users.size()-1,1)}">
+                <td th:text="${i}"></td>
+                <td th:text="${users.get(i).getLogin()}"></td>
+                <td th:text="${users.get(i).getScore()}"></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 </body>

@@ -51,5 +51,16 @@ public class UserDAO {
         this.isAdmin = editedUser.getIsAdmin();
     }
 
-
+    @Override
+    public String toString() {
+        return "UserDAO{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", country='" + country + '\'' +
+                ", score=" + score +
+                ", isAdmin=" + isAdmin +
+                '}';
+    }
 }

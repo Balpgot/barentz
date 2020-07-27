@@ -1,14 +1,15 @@
 package com.barentzconnection.demo.configuration;
 
+import com.barentzconnection.demo.services.UserDetailsServiceImp;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
@@ -18,24 +19,29 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public static String USER = "USER";
     public static String ANONYMOUS = "anonymousUser";
 
+    @Autowired
+    private UserDetailsServiceImp userDetailsService;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         String[] staticResources  =  {
                 "/css/**",
                 "/img/**",
-                "/fonts/**",
-                "/scripts/**",
         };
 
         http
                 .authorizeRequests()
                 .antMatchers(staticResources).permitAll()
                 .antMatchers("/").permitAll()
-                .antMatchers("/admin/*").hasRole(ADMIN)
+                .antMatchers("/schedule").permitAll()
+                .antMatchers("/contacts").permitAll()
+                .antMatchers("/register").permitAll()
+                .antMatchers("/leaders").permitAll()
+                .antMatchers("/admin").hasAuthority(ADMIN)
+                .antMatchers("/admin/*").hasAuthority(ADMIN)
+                .antMatchers("/cabinet/*").authenticated()
                 .antMatchers("/login").anonymous()
-                .antMatchers("/user/*").authenticated()
-                .antMatchers("/schedule").anonymous()
-                .antMatchers("/contacts").anonymous()
+                .antMatchers("/logout").authenticated()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -48,15 +54,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    @Override
-    public UserDetailsService userDetailsService() {
-        UserDetails user =
-                User.withDefaultPasswordEncoder()
-                        .username("user")
-                        .password("password")
-                        .roles("USER")
-                        .build();
-
-        return new InMemoryUserDetailsManager(user);
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authenticationProvider());
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    }
+
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
+    }
+
 }
