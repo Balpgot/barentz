@@ -57,7 +57,7 @@ public class UserController {
                         LocalDate.now(),
                         LocalTime.now(),
                         "link",
-                        "./"
+                        "bf.jpg"
                 )
         );
         eventRepo.saveAndFlush(
@@ -69,7 +69,7 @@ public class UserController {
                         LocalDate.now(),
                         LocalTime.now(),
                         "link",
-                        "./"
+                        "bf2.jpg"
                 )
         );
         eventRepo.saveAndFlush(
@@ -81,7 +81,7 @@ public class UserController {
                         LocalDate.now(),
                         LocalTime.now(),
                         "link",
-                        "./"
+                        "bf.jpg"
                 )
         );
     }

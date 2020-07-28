@@ -70,6 +70,9 @@
                 <option th:value="${true}">Админ</option>
             </select>
         </div>
+        <input type="hidden"
+               th:name="${_csrf.parameterName}"
+               th:value="${_csrf.token}"/>
         <input class="btn btn-primary" type="submit" value="Обновить пользователя"/>
     </form>
 </div>

@@ -75,6 +75,9 @@
                             <label for="password">Password</label>
                             <input id="password" type="password" name="password" required>
                         </div>
+                        <input type="hidden"
+                               th:name="${_csrf.parameterName}"
+                               th:value="${_csrf.token}"/>
                         <div><input type="submit" value="Sign In"/></div>
                     </form>
                 </div>
@@ -112,6 +115,9 @@
                             <div class="valid-feedback"></div>
                             <div class="invalid-feedback">Это поле должно быть заполнено</div>
                         </div>
+                        <input type="hidden"
+                               th:name="${_csrf.parameterName}"
+                               th:value="${_csrf.token}"/>
                         <div><input type="submit" value="Register"/></div>
                     </form>
                 </div>

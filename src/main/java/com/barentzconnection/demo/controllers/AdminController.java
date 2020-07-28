@@ -55,7 +55,15 @@ public class AdminController {
         EventDAO event = new EventDAO();
         event.edit(eventDTO);
         eventRepository.saveAndFlush(event);
-        return "redirect:/admin/events";
+        Optional<EventDAO> eventDAO = eventRepository
+                .findEventDAOByName(eventDTO.getName());
+        if(eventDAO.isPresent()){
+            return "redirect:/admin/events/" +
+                eventDAO.get().getId();
+        }
+        else{
+            return "redirect:/admin/events/";
+        }
     }
 
     @GetMapping(value = "/admin/events/{id}")
@@ -83,9 +91,10 @@ public class AdminController {
         }
     }
 
-    @PostMapping(value = "/upload")
-    public void singleFileUpload(@RequestParam("file") MultipartFile file) {
-        System.getProperty("user.dir");
+    @PostMapping(value = "/upload/{id}")
+    public String singleFileUpload(@PathVariable Long id, @RequestParam("file") MultipartFile file) {
+        System.out.println(System.getProperty("user.dir"));
+        System.out.println("hello");
         String UPLOADED_FOLDER = System.getProperty("user.dir") + "/src/main/resources/static/img/";
         if(!file.isEmpty()) {
             try {
@@ -93,10 +102,16 @@ public class AdminController {
                 byte[] bytes = file.getBytes();
                 Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
                 Files.write(path, bytes);
+                Optional<EventDAO> event = eventRepository.findById(id);
+                if(event.isPresent()){
+                    event.get().setImgPath(file.getOriginalFilename());
+                    eventRepository.saveAndFlush(event.get());
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        return "redirect:/admin/events";
     }
 
     @PostMapping(value = "/admin/events/{id}/edit",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)

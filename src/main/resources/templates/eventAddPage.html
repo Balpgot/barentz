@@ -29,7 +29,7 @@
         }
     </script>
 </head>
-<body th:style="'background:url('+ @{/img/bg.jpg} +');'">
+<body>
 <nav class="navbar navbar-expand-sm bg-dark text-white">
     <a class="navbar-brand" >
         <img th:src="@{/images/logo.png}" alt="Logo" src="../static/images/logo.png"></a>
@@ -96,13 +96,9 @@
             <div class="valid-feedback"></div>
             <div class="invalid-feedback">Это поле должно быть заполнено</div>
         </div>
-        <form method="post" action="/upload" enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="img">Картинка</label>
-                <input class="form-control" type="file" id="img"/>
-            </div>
-            <input type="button" value="Загрузить файл" />
-        </form>
+        <input type="hidden"
+               th:name="${_csrf.parameterName}"
+               th:value="${_csrf.token}"/>
         <input class="btn btn-primary" type="submit" value="Обновить мероприятие"/>
     </form>
 </div>

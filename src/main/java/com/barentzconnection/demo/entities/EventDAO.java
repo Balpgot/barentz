@@ -48,8 +48,8 @@ public class EventDAO {
         this.category = editedEvent.getCategory();
         this.description = editedEvent.getDescription();
         this.day = Integer.parseInt(editedEvent.getDay());
-        this.date = this.date.withDayOfMonth(editedEvent.getDayOfMonth()).withMonth(editedEvent.getMonth());
-        this.time = this.time.withHour(editedEvent.getHour()).withMinute(editedEvent.getMinute());
+        this.date = LocalDate.now().withDayOfMonth(editedEvent.getDayOfMonth()).withMonth(editedEvent.getMonth());
+        this.time = LocalTime.now().withHour(editedEvent.getHour()).withMinute(editedEvent.getMinute());
         this.link = editedEvent.getLink();
         this.imgPath = editedEvent.getImgPath();
     }
