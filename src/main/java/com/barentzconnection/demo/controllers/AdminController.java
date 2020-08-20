@@ -12,13 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Optional;
 
 @Controller
@@ -26,6 +20,8 @@ public class AdminController {
 
     IEventRepository eventRepository;
     IUserRepository userRepository;
+    private final String UPLOADED_FOLDER = System.getProperty("user.dir") + "/src/main/resources/static/img/events/";
+    private final String IMG_PATH = "/img/events/";
 
     @Autowired
     public AdminController(IEventRepository eventRepository, IUserRepository userRepository){
@@ -42,28 +38,6 @@ public class AdminController {
     public String adminEvents(Model model){
         model.addAttribute("events", eventRepository.findAll());
         return "adminEvents";
-    }
-
-    @GetMapping(value = "/admin/events/add")
-    public String addEvent(Model model){
-        model.addAttribute("event", new EventDTO());
-        return "eventAddPage";
-    }
-
-    @PostMapping(value = "/admin/events/add",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String editEvent(EventDTO eventDTO){
-        EventDAO event = new EventDAO();
-        event.edit(eventDTO);
-        eventRepository.saveAndFlush(event);
-        Optional<EventDAO> eventDAO = eventRepository
-                .findEventDAOByName(eventDTO.getName());
-        if(eventDAO.isPresent()){
-            return "redirect:/admin/events/" +
-                eventDAO.get().getId();
-        }
-        else{
-            return "redirect:/admin/events/";
-        }
     }
 
     @GetMapping(value = "/admin/events/{id}")
@@ -89,29 +63,6 @@ public class AdminController {
         else{
             return "redirect:/admin/events";
         }
-    }
-
-    @PostMapping(value = "/upload/{id}")
-    public String singleFileUpload(@PathVariable Long id, @RequestParam("file") MultipartFile file) {
-        System.out.println(System.getProperty("user.dir"));
-        System.out.println("hello");
-        String UPLOADED_FOLDER = System.getProperty("user.dir") + "/src/main/resources/static/img/";
-        if(!file.isEmpty()) {
-            try {
-                // Get the file and save it somewhere
-                byte[] bytes = file.getBytes();
-                Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
-                Files.write(path, bytes);
-                Optional<EventDAO> event = eventRepository.findById(id);
-                if(event.isPresent()){
-                    event.get().setImgPath(file.getOriginalFilename());
-                    eventRepository.saveAndFlush(event.get());
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return "redirect:/admin/events";
     }
 
     @PostMapping(value = "/admin/events/{id}/edit",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)

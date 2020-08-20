@@ -39,19 +39,15 @@
         </ul>
     </nav>
     <div>
+        <a class="btn btn-info" th:href="@{/admin/events/add}">Добавить мероприятие</a>
         <table class="table table-hover">
             <thead class="thead-dark">
-                <tr><th>ID</th><th>Название</th><th>Категория</th><th>Описание</th>
-                <th>День</th><th>Дата</th><th>Время</th><th>Ссылка</th></tr>
+                <tr><th>ID</th><th>Название</th><th>Время</th><th>Ссылка</th></tr>
             </thead>
             <tbody>
                 <tr th:each="event:${events}">
                     <td th:text="${event.getId()}"></td>
                     <td th:text="${event.getName()}"></td>
-                    <td th:text="${event.getCategory()}"></td>
-                    <td th:text="${event.getDescription()}"></td>
-                    <td th:text="${event.getDay()}"></td>
-                    <td th:text="${event.getDateAsString()}"></td>
                     <td th:text="${event.getTimeAsString()}"></td>
                     <td th:text="${event.getLink()}"></td>
                     <td>

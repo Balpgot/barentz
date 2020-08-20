@@ -46,16 +46,6 @@
             <div class="invalid-feedback">Это поле должно быть заполнено</div>
         </div>
         <div class="form-group">
-            <label for="category">Категория</label>
-            <select class="form-control" th:field="${event.category}" id="category" size="1" required>
-                <option value="" disabled>Выберите категорию</option>
-                <option value="Sport">Sport</option>
-                <option value="Dance">Dance</option>
-                <option value="Cooking">Cooking</option>
-                <option value="Acting">Acting</option>
-            </select>
-        </div>
-        <div class="form-group">
             <label for="desc">Описание</label>
             <br/>
             <textarea id="desc" th:value="${event.getDescription()}" th:field="${event.description}" required></textarea>
@@ -63,14 +53,9 @@
             <div class="invalid-feedback">Это поле должно быть заполнено</div>
         </div>
         <div class="form-group">
-            <label for="day">День</label>
-            <input class="form-control" type="text" id="day" th:value="${event.getDay()}" th:field="${event.day}" required/>
-            <div class="valid-feedback"></div>
-            <div class="invalid-feedback">Это поле должно быть заполнено</div>
-        </div>
-        <div class="form-group">
-            <label for="date">Дата</label>
-            <input class="form-control" type="text" id="date" th:value="${event.getDate()}" th:field="${event.date}" required/>
+            <label for="speak">Спикер</label>
+            <br/>
+            <textarea id="speak" th:value="${event.getSpeaker()}" th:field="${event.speaker}" required></textarea>
             <div class="valid-feedback"></div>
             <div class="invalid-feedback">Это поле должно быть заполнено</div>
         </div>

@@ -41,8 +41,8 @@
     <div>
         <table class="table table-hover">
             <thead class="thead-dark">
-            <tr><th>ID</th><th>Логин</th><th>E-mail</th><th>Страна</th>
-                <th>Кол-во очков</th><th>Админ</th></tr>
+            <tr><th>ID</th><th>Логин</th><th>E-mail</th><th>Страна</th><th>Город</th>
+                <th>Возраст</th><th>Кол-во очков</th><th>Админ</th></tr>
             </thead>
             <tbody>
             <tr th:each="user:${users}">
@@ -50,6 +50,8 @@
                 <td th:text="${user.getLogin()}"></td>
                 <td th:text="${user.getEmail()}"></td>
                 <td th:text="${user.getCountry()}"></td>
+                <td th:text="${user.getCity()}"></td>
+                <td th:text="${user.getAge()}"></td>
                 <td th:text="${user.getScore()}"></td>
                 <td th:if="${user.isAdmin}" th:text="'+'"></td>
                 <td th:unless="${user.isAdmin}" th:text="''"></td>

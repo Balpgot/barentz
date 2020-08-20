@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Data
 @Entity
@@ -13,7 +12,6 @@ import java.util.Set;
 @NoArgsConstructor
 @Table(name = "user")
 public class UserDAO {
-
     //Login – E-mail – Password – Country – Score – Logged in
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,24 +20,26 @@ public class UserDAO {
     private String email;
     private String password;
     private String country;
+    private String city;
     private Integer score;
+    private Integer age;
     private Boolean isLogged;
     private Boolean isAdmin;
-    @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(
-            name = "user_event",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "event_id")
-    )
-    private Set<EventDAO> userEvents;
+    private String avatarPath;
 
-    public UserDAO(String login, String email, String pass, String country, int i, boolean b) {
+    public UserDAO(String login, String email, String pass, String country, String city, int age, int score, boolean isAdmin) {
         this.login = login;
         this.email = email;
         this.password = pass;
         this.country = country;
-        this.score = i;
-        this.isAdmin = b;
+        this.city = city;
+        this.age = age;
+        this.score = score;
+        this.isAdmin = isAdmin;
+    }
+
+    public String getLocation(){
+        return country + ',' + city;
     }
 
     public void edit(UserDAO editedUser){
@@ -47,8 +47,11 @@ public class UserDAO {
         this.email = editedUser.getEmail();
         this.password = editedUser.getPassword();
         this.country = editedUser.getCountry();
+        this.city = editedUser.getCity();
+        this.age = editedUser.getAge();
         this.score = editedUser.getScore();
         this.isAdmin = editedUser.getIsAdmin();
+        this.avatarPath = editedUser.getAvatarPath();
     }
 
     @Override

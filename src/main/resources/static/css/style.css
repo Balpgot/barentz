@@ -1,0 +1,58 @@
+
+*{
+    font-family: 'Montserrat', sans-serif;
+}
+
+.main-header{
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 44px;
+    color: #2F80ED;
+}
+
+.flex-column{
+    justify-content: center;
+}
+
+.popover {
+    max-width: 100%;
+    width: 350px;
+}
+
+.card-date {
+    background: rgba(105, 105, 105, 0.7);
+    width: 50%;
+    height: 20%;
+    text-align: center;
+}
+
+.curves {
+    background: #FAFAFD url("../img/curves.svg");
+}
+
+.footer {
+    background: #FAFAFD url("../img/curves.svg");
+}
+
+h3 {
+    opacity: 100% !important;
+}
+
+.navbar {
+    background: none;
+}
+
+#base {
+    height: 100vh;
+}
+
+.nav-link{
+    color: dimgray;
+}
+
+#current{
+    text-decoration: underline;
+    text-decoration-color: blue;
+}

@@ -17,6 +17,26 @@
 
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+    <script>
+        function hideField() {
+            let error_block = document.getElementById("unmatch");
+            $(error_block).hide();
+        }
+
+        function checkPassword(element) {
+            let re_pass = $(element).val();
+            let pass = $(document.getElementById("password_r")).val();
+            let error_block = document.getElementById("unmatch");
+            if(pass === re_pass){
+                $(error_block).hide();
+            }
+            else{
+                alert("SHOW");
+                $(error_block).show();
+            }
+        }
+    </script>
 </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-dark text-white">
@@ -46,7 +66,7 @@
                     <a class="nav-link" data-toggle="tab" role="tab" id="login-tab" href="#authForm">Sign in</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" role="tab" id="register-tab" href="#registerForm">Register</a>
+                    <a class="nav-link" onclick="hideField()" data-toggle="tab" role="tab" id="register-tab" href="#registerForm">Register</a>
                 </li>
             </ul>
             <div class="tab-content">
@@ -58,7 +78,7 @@
                     </div>
                     <div th:if="${param.error}">
                         <div class="alert alert-danger" role="alert">
-                            Invalid username and password.
+                            Invalid username or password.
                         </div>
                     </div>
                     <div th:if="${param.logout}">
@@ -89,6 +109,7 @@
                             <div th:if="${param.lg}">Пользователь с таким логином уже существует</div>
                             <div class="valid-feedback"></div>
                             <div class="invalid-feedback">Это поле должно быть заполнено</div>
+                            <div hidden id="taken" class="invalid-feedback">This login is taken</div>
                         </div>
                         <div class="form-group">
                             <label for="password_r">Password</label>
@@ -97,12 +118,13 @@
                             <div class="valid-feedback"></div>
                             <div class="invalid-feedback">Это поле должно быть заполнено</div>
                         </div>
-                        <!--<div class="form-group">
+                        <div class="form-group">
                             <label for="password_check_r">Re-Enter password</label>
-                            <input id="password_check_r" type="password" th:field="${password_check.password}" required>
+                            <input id="password_check_r" onchange="checkPassword(this)" type="password" required>
                             <div class="valid-feedback"></div>
                             <div class="invalid-feedback">Это поле должно быть заполнено</div>
-                        </div>-->
+                            <div id="unmatch" class="alert alert-danger" role="alert">Passwords are not equal</div>
+                        </div>
                         <div class="form-group">
                             <label for="email_r">E-mail</label>
                             <input id="email_r" type="text" th:field="${user.email}" required>

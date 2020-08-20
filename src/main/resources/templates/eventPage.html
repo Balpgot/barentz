@@ -47,37 +47,12 @@
         <tr>
             <td th:text="${event.getId()}"></td>
             <td th:text="${event.getName()}"></td>
-            <td th:text="${event.getCategory()}"></td>
             <td th:text="${event.getDescription()}"></td>
-            <td th:text="${event.getDay()}"></td>
-            <td th:text="${event.getDateAsString()}"></td>
             <td th:text="${event.getTimeAsString()}"></td>
             <td th:text="${event.getLink()}"></td>
         </tr>
         </tbody>
     </table>
-    <form method="post" th:action="@{'/upload/' + ${event.getId()}}" enctype="multipart/form-data">
-        <div class="form-group">
-            <label for="img">Картинка</label>
-            <input class="form-control-file" name="file" type="file" id="img"/>
-        </div>
-        <input type="hidden"
-               th:name="${_csrf.parameterName}"
-               th:value="${_csrf.token}"/>
-        <input type="submit" value="Загрузить файл" />
-    </form>
-    <div class="card text-white bg-dark">
-        <img th:src="@{'/img/' + ${event.getImgPath()}}" class="card-img-top" alt="..." height="300">
-        <div class="card-img-overlay">
-            <h3 class="card-subtitle" th:text="${event.getDateAsString()}"></h3>
-            <h3 class="card-subtitle" th:text="${event.getTimeAsString()}"></h3>
-        </div>
-        <div class="card-body bg-dark">
-            <h4 class="card-title" th:text="${event.getName()}"></h4>
-            <p class="card-text" th:text="${event.getDescription()}"></p>
-            <a th:href="${event.getLink()}" class="btn btn-primary">Open</a>
-        </div>
-    </div>
 </div>
 </body>
 </html>

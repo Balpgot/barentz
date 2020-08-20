@@ -58,8 +58,20 @@
             <div class="invalid-feedback">Это поле должно быть заполнено</div>
         </div>
         <div class="form-group">
+            <label for="country">Город</label>
+            <input class="form-control" type="text" id="city" th:value="${user.getCity()}" th:field="${user.city}" required/>
+            <div class="valid-feedback"></div>
+            <div class="invalid-feedback">Это поле должно быть заполнено</div>
+        </div>
+        <div class="form-group">
+            <label for="score">Возраст</label>
+            <input class="form-control" type="number" id="age" th:value="${user.getAge()}" th:field="${user.age}" required/>
+            <div class="valid-feedback"></div>
+            <div class="invalid-feedback">Это поле должно быть заполнено</div>
+        </div>
+        <div class="form-group">
             <label for="score">Счёт</label>
-            <input class="form-control" type="text" id="score" th:value="${user.getScore()}" th:field="${user.score}" required/>
+            <input class="form-control" type="number" id="score" th:value="${user.getScore()}" th:field="${user.score}" required/>
             <div class="valid-feedback"></div>
             <div class="invalid-feedback">Это поле должно быть заполнено</div>
         </div>

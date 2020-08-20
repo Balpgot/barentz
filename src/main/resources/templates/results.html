@@ -41,7 +41,7 @@
     <div class="row" th:fragment="eventsPerDay" th:each="i:${#numbers.sequence(0,events.size()-1,2)}">
         <div class="col">
             <div class="card text-white bg-dark">
-                <img th:src="@{'/img/' + ${events.get(i).getImgPath()}}" class="card-img-top" alt="..." height="300">
+                <img th:src="@{${events.get(i).getImgPath()}}" class="card-img-top" alt="..." height="300">
                 <div class="card-img-overlay">
                     <h3 class="card-subtitle" th:text="${events.get(i).getDateAsString()}"></h3>
                     <h3 class="card-subtitle" th:text="${events.get(i).getTimeAsString()}"></h3>
@@ -56,7 +56,7 @@
         <div class="col" >
             <div th:if="${i+1}>${events.size()-1}"></div>
             <div th:unless="${i+1}>${events.size()-1}" class="card text-white bg-dark">
-                <img th:src="@{'/img/' + ${events.get(i+1).getImgPath()}}" class="card-img-top" alt="..." height="300">
+                <img th:src="@{${events.get(i+1).getImgPath()}}" class="card-img-top" alt="..." height="300">
                 <div class="card-img-overlay">
                     <h3 class="card-subtitle" th:text="${events.get(i+1).getDateAsString()}"></h3>
                     <h3 class="card-subtitle" th:text="${events.get(i+1).getTimeAsString()}"></h3>
