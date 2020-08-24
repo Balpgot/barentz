@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang=ru
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Schedule</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+    <script>
+
+        function changeDropdown() {
+            let challenge_block = document.getElementById('challenge_block');
+            let challenge_video = document.getElementById('challenge_video');
+            let challenge_text = document.getElementById('challenge_text');
+            let challenge_header = document.getElementById('challenge_header');
+            if($(challenge_video).is(":visible")){
+                $(challenge_block).hide();
+                $(challenge_text).hide();
+                $(challenge_video).hide();
+                $(challenge_header).hide();
+            }
+            else{
+                $(challenge_block).show();
+                $(challenge_header).show();
+                $(challenge_text).show();
+                $(challenge_video).show();
+            }
+        }
+
+        function changeDay(elem) {
+            let currentActive = document.getElementsByClassName('page-item active')[0];
+            $(currentActive).removeClass('active');
+            let nextActive = document.getElementById('p' + elem.id);
+            $(nextActive).addClass('active');
+        }
+
+        $(function () {
+            $('[data-toggle="popover"]').popover({
+                html : true,
+                content: function() {
+                    return $('#account_info').html();
+                }
+            });
+        })
+
+    </script>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm justify-content-lg-between text-white">
+    <a class="navbar-brand" >
+        <img alt="Logo" src="" th:src="@{/img/logo.jpg}">
+    </a>
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="/">Start</a>
+        </li>
+        <li class="nav-item">
+            <a id="current" class="nav-link" href="/schedule">Schedule</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/contacts">Contacts</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/leaders">Leaders</a>
+        </li>
+    </ul>
+    <div id="account" class="media" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom">
+        <div class="media-body align-self-center text-dark" style="width: auto">200 C</div>
+        <img height="64px" width="64px" src="" th:src="@{/img/basic.jpg}" class="align-self-center ml-3 rounded-circle"  alt="...">
+        <div id="account_info" class="popover" style="display: none;">
+            <div class="row">
+                <div class="col">
+                    <div class="media">
+                        <img height="48px" width="48px" src="" th:src="@{/img/basic.jpg}" class="mr-3" alt="...">
+                        <div class="media-body text-dark">
+                            <h5>Name</h5>
+                            <p>500 C</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <span class="text-muted">E-mail: </span>cinilya1712@gmail.com
+                </div>
+            </div>
+            <div class="row">
+                <div class="col ">
+                    <span class="text-muted">Location: </span>Norway, Oslo
+                </div>
+            </div>
+            <div class="row">
+                <div class="col ">
+                    <span class="text-muted">Age: </span>19
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<nav>
+    <ul class="pagination pagination-lg justify-content-center">
+        <li class="page-item active" id="1" onclick="changeDay(this)">
+            <a class="page-link text-dark"
+               style="background: #FAFAFD" href="#">
+                <b>Day 1.</b>
+                <br/>Opening<br/> ceremony
+            </a>
+        </li>
+        <li class="page-item" id="2">
+            <a class="page-link text-dark border-top-0 border-bottom-0"
+               style="background: #FAFAFD" href="#">
+                <b>Day 2 <span class="badge badge-primary">Now</span></b>
+                <br/>Connect and<br/>Learn
+            </a>
+        </li>
+        <li class="page-item" id="3">
+            <a class="page-link text-dark border-top-0 border-bottom-0"
+               style="background: #FAFAFD"  href="#">
+                <b>Day 3</b>
+                <br/>Connect and<br/>Teach
+            </a>
+        </li>
+        <li class="page-item" id="4">
+            <a class="page-link text-dark border-top-0 border-bottom-0"
+               style="background: #FAFAFD" href="#">
+                <b>Day 4</b>
+                <br/>Connect and<br/>Travel
+            </a>
+        </li>
+        <li class="page-item" id="5">
+            <a class="page-link text-dark border-right-0 border-top-0 border-bottom-0"
+               style="background: #FAFAFD" href="#">
+                <b>Day 5</b>
+                <br/>Closing<br/> ceremony
+            </a>
+        </li>
+    </ul>
+</nav>
+<div th:fragment="loadArea" class="container-fluid d-flex flex-column">
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8 mt-5 curves justify-content-center">
+            <div class="media py-5 px-5">
+                <img src="" th:src="@{/img/write.svg}" class="mr-3 align-self-center" alt="...">
+                <div class="media-body align-self-center justify-content-center">
+                    <h2 class="main-header">Connect and Learn</h2>
+                    Learn, play and travel with us no matter what!
+                    <img onclick="changeDropdown()" src="" th:src="@{/img/challenge.svg}" class="ml-3 align-self-center" alt="...">
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2"></div>
+    </div>
+    <div id="challenge_block" style="display: none" class="row alert alert-info mt-5 mx-5" role="alert">
+        <div class="col-sm">
+            <h2 style="display: none" id="challenge_header">Today challenge is...</h2>
+            <p style="display: none" id="challenge_text">
+                Welcome to the second day of our Marathon! Are you ready to try something new?<br/>
+                You have a good opportunity to get additional points to get closer to winning.
+                <br/>But first you have to take on a challenge.
+                <br/>
+                <br/>
+                1. Choose one of our five videos on YouTube.
+                <br/>
+                2. Watch it.
+                <br/>
+                3. Complete the task and record it.
+                <br/>
+                4. Send your video to: <br/>
+                <a href="mailto:barentsconnection@gmail.com">barentsconnection@gmail.com</a>
+                <br/>
+                If you have any questions or problems, contact us by e-mail or through social networks.
+            </p>
+        </div>
+        <div class="col-sm d-flex">
+            <iframe style="display: none" class="mt-3" height="100%" width="100%" id="challenge_video" th:src="${ConnectAndLearnChallenge}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+    <div class="d-flex flex-column" id="first_block">
+        <div class="row mt-5">
+            <div class="col-sm"></div>
+            <div class="col-sm-3">
+                <div class="card text-dark bg-light border-0"  data-toggle="modal" data-target="#modal-1">
+                    <img src="" th:src="@{/img/music.jpg}" class="card-img-top" alt="..." height="300">
+                    <div class="card-body">
+                        <h4 class="card-title text-wrap" th:text="${event1.getName()}">Become a musician without a music instrument</h4>
+                        <p style="color: #2F80ED"><b th:text="${event1.getTimeString()}"></b></p>
+                        <p class="card-text text-muted text-wrap">Always wanted to learn how to play the guitar, but have neither the guitar nor time?</p>
+                        <a th:href="@{${event1.getLink()}}">Register</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card text-dark bg-light border-0"   data-toggle="modal" data-target="#modal-2">
+                    <img src="" th:src="@{/img/acting.jpg}" class="card-img-top" alt="...">
+                    <div class="card-body bg-light">
+                        <h4 class="card-title" th:text="${event2.getName()}">How to improve your public speaking skills</h4>
+                        <p style="color: #2F80ED"><b th:text="${event2.getTimeString()}"></b></p>
+                        <p class="card-text text-muted">Nervous when speaking in public? Always mumble, stutter or jabber while giving a...</p>
+                        <a th:href="@{${event2.getLink()}}">Register</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card text-dark bg-light border-0" data-toggle="modal" data-target="#modal-3">
+                    <img src="" th:src="@{/img/handcraft.jpg}" class="card-img-top" alt="..." height="100%" width="100%" >
+                    <div class="card-body bg-light">
+                        <h4 class="card-title" th:text="${event3.getName()}">There’s a bear in your room!</h4>
+                        <p style="color: #2F80ED"><b th:text="${event3.getTimeString()}"></b></p>
+                        <p class="card-text text-muted">The perfect way to get new skills in handicraft and reuse old magazines or...</p>
+                        <a th:href="@{${event3.getLink()}}">Register</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm"></div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-sm"></div>
+            <div class="col-sm-3">
+                <div class="card text-dark bg-light border-0" data-toggle="modal" data-target="#modal-4">
+                    <img src="" th:src="@{/img/sports.jpg}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h4 class="card-title" th:text="${event4.getName()}">First step in returning your pre-self-isolation body.</h4>
+                        <p style="color: #2F80ED"><b th:text="${event4.getTimeString()}"></b></p>
+                        <p class="card-text text-muted">Fitness centers are just starting to open, YouTube persistently offers home...</p>
+                        <a th:href="@{${event4.getLink()}}">Register</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card text-dark bg-light border-0" data-toggle="modal" data-target="#modal-5">
+                    <img src="" th:src="@{/img/break.jpg}" class="card-img-top" alt="..." height="300">
+                    <div class="card-body bg-light">
+                        <h4 class="card-title" th:text="${event5.getName()}">Basic Breaking</h4>
+                        <p style="color: #2F80ED"><b th:text="${event5.getTimeString()}"></b></p>
+                        <p class="card-text text-muted">If you can't sit still with the sound of groovy music, if "Dirty Dancing"...</p>
+                        <a th:href="@{${event5.getLink()}}">Register</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+            </div>
+            <div class="col-sm"></div>
+        </div>
+    </div>
+    <!-- Modals -->
+    <div class="modal fade" id="modal-1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-body py-0 px-0">
+                    <div class="card" style="height: 100%">
+                        <div class="row no-gutters" style="height: 100%">
+                            <div class="col-sm-6">
+                                <div class="card-img-overlay row mx-2">
+                                    <div class="card-date text-white col">
+                                        <h3 class="card-subtitle py-2" th:text="${event1.getTimeAsString()}"></h3>
+                                        <h3 class="card-subtitle py-2" th:text="${event1.getTimeAsStringNO()}"></h3>
+                                    </div>
+                                    <div class="col">
+                                        <img src="" th:if="${#bools.isTrue(event1ready)}" th:src="@{/img/begun.svg}" alt="...">
+                                    </div>
+                                </div>
+                                <img src="" th:src="@{/img/music.jpg}" class="card-img" alt="..." style="height: 100%">
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="card-body">
+                                    <h5 class="card-title" th:text="${event1.getName()}">Become a musician without a music instrument.</h5>
+                                    <p class="card-text text-muted" th:text="${event1.getSpeaker()}">Katja Marakelri</p>
+                                    <p class="card-text" th:text="${event1.getDescription()}">
+                                        Always wanted to learn how to play the guitar, but have neither the guitar nor time? Great! We will make your dream come true. All you need is a smartphone and Katja Merakerli’s workshop, where she will tell you how to create music with “Garageband” app.                                    </p>
+                                    <a th:href="@{${event1.getLink()}}">
+                                        <img class="mt-5" src="" th:src="@{/img/connect.svg}" alt="...">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal-2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-body py-0 px-0">
+                    <div class="card">
+                        <div class="row no-gutters" >
+                            <div class="col-md-6">
+                                <div class="card-img-overlay row mx-2">
+                                    <div class="card-date text-white col">
+                                        <h3 class="card-subtitle py-2" th:text="${event2.getTimeAsString()}"></h3>
+                                        <h3 class="card-subtitle py-2" th:text="${event2.getTimeAsStringNO()}"></h3>
+                                    </div>
+                                    <div class="col">
+                                        <img src="" th:if="${#bools.isTrue(event2ready)}" th:src="@{/img/begun.svg}" alt="...">
+                                    </div>
+                                </div>
+                                <img src="" th:src="@{/img/acting.jpg}" class="card-img" alt="..." style="height: 100%">
+
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card-body">
+                                    <h5 class="card-title" th:text="${event2.getName()}">How to improve your public speaking skills</h5>
+                                    <p class="card-text text-muted" th:text="${event2.getSpeaker()}">Maria Urieva</p>
+                                    <p class="card-text" th:text="${event2.getDescription()}">
+                                        Nervous when speaking in public? Always mumble, stutter or jabber while giving a talk? Don't know how to stand and where to put your hands? Maria Yurieva, an actress and director-teacher of the “Children’s theater school”, will teach you some techniques to develop a strong, vibrant speaking voice and reveal some secrets of how to reduce your fear of public speaking.
+                                    </p>
+                                    <a th:href="@{${event2.getLink()}}">
+                                        <img class="mt-5" src="" th:src="@{/img/connect.svg}" alt="...">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal-3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-body py-0 px-0">
+                    <div class="card">
+                        <div class="row no-gutters">
+                            <div class="col-md-6">
+                                <div class="card-img-overlay row mx-2">
+                                    <div class="card-date text-white col">
+                                        <h3 class="card-subtitle py-2" th:text="${event3.getTimeAsString()}"></h3>
+                                        <h3 class="card-subtitle py-2" th:text="${event3.getTimeAsStringNO()}"></h3>
+                                    </div>
+                                    <div class="col">
+                                        <img src="" th:if="${#bools.isTrue(event3ready)}" th:src="@{/img/begun.svg}" alt="...">
+                                    </div>
+                                </div>
+                                <img src="" th:src="@{/img/handcraft.jpg}" class="card-img" alt="..." style="height: 100%">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card-body">
+                                    <h5 class="card-title" th:text="${event3.getName()}">There’s a bear in your room!</h5>
+                                    <p class="card-text text-muted" th:text="${event3.getSpeaker()}">Victoria Zaytseva</p>
+                                    <p class="card-text" th:text="${event3.getDescription()}">
+                                        The perfect way to get new skills in handicraft and reuse old magazines or newspapers is to take part in the challenge from Victoria Zaitseva. She works at the Center for Creativity and Social Adaptation and will be glad to teach you some new handicrafts and design skills. Are you ready? So, join us!                                    </p>
+                                    <a th:href="${event3.getLink()}">
+                                        <img class="mt-5" src="" th:src="@{/img/connect.svg}" alt="...">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal-4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-body py-0 px-0">
+                    <div class="card">
+                        <div class="row no-gutters">
+                            <div class="col-md-6">
+                                <div class="card-img-overlay row mx-2">
+                                    <div class="card-date text-white col">
+                                        <h3 class="card-subtitle py-2" th:text="${event4.getTimeAsString()}"></h3>
+                                        <h3 class="card-subtitle py-2" th:text="${event4.getTimeAsStringNO()}"></h3>
+                                    </div>
+                                    <div class="col">
+                                        <img src=""  th:if="${#bools.isTrue(event4ready)}"th:src="@{/img/begun.svg}" alt="...">
+                                    </div>
+                                </div>
+                                <img src="" th:src="@{/img/sports.jpg}" class="card-img" alt="..." style="height: 100%">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card-body">
+                                    <h5 class="card-title" th:text="${event4.getName()}">First step in returning your pre-self-isolation body</h5>
+                                    <p class="card-text text-muted" th:text="${event4.getSpeaker()}">Vladislav Sapozhnikov</p>
+                                    <p class="card-text" th:text="${event4.getDescription()}">
+                                        Fitness centers are just starting to open, YouTube persistently offers home workouts, while you fall asleep on the couch with a pack of chips? It’s time you take on the challenge from our speaker Vladislav Sapozhnikov, who is the world championship bronze medalist in ice swimming and the record holder in the international open water swimming festival “Gulf Stream”. If you want to remember where your abs are – join Vladislav’s challenge!
+                                    </p>
+                                    <a th:href="${event4.getLink()}">
+                                        <img class="mt-5" src="" th:src="@{/img/connect.svg}" alt="...">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal-5" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-body py-0 px-0">
+                    <div class="card" >
+                        <div class="row no-gutters" >
+                            <div class="col-md-6">
+                                <div class="card-img-overlay row mx-2">
+                                    <div class="card-date text-white col">
+                                        <h3 class="card-subtitle py-2" th:text="${event5.getTimeAsString()}"></h3>
+                                        <h3 class="card-subtitle py-2" th:text="${event5.getTimeAsStringNO()}"></h3>
+                                    </div>
+                                    <div class="col">
+                                        <img src="" th:if="${#bools.isTrue(event5ready)}" th:src="@{/img/begun.svg}" alt="...">
+                                    </div>
+                                </div>
+                                <img src="" th:src="@{/img/break.jpg}" class="card-img" alt="..." style="height: 100%">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card-body">
+                                    <h5 class="card-title" th:text="${event5.getName()}">Basic breaking</h5>
+                                    <p class="card-text text-muted" th:text="${event5.getSpeaker()}">Artem Ostanin</p>
+                                    <p class="card-text" th:text="${event5.getDescription()}">
+                                        If you can't sit still with the sound of groovy music, if "Dirty Dancing" and "Step Forward" are more than just movies for you, if you don’t dance, but with admiration watch break dancers spinning on their heads, the next workshop is just for you! Artem Ostanin, bboy, head of the “Dance Lab” and founder of the “Polar Universal” breaking team, will show you how to own the dance floor!
+                                    </p>
+                                    <a th:href="${event5.getLink()}">
+                                        <img class="mt-5" src="" th:src="@{/img/connect.svg}" alt="...">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer mt-5">
+    <div class="row">
+        <div class="col">
+            <nav class="navbar navbar-expand-sm justify-content-center mx-5">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" style="color:black;" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color:black;" href="/schedule">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color:black;" href="/contacts">Contacts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color:black;" href="/leaders">Leaders</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <br/>
+    <div class="row pb-5">
+        <div class="col d-flex justify-content-around">
+            <img alt="Logo" src="" th:src="@{/img/logo.jpg}">
+        </div>
+        <div class="col d-flex justify-content-around text-muted text-center">
+            Designed by Zakhar Gibadulin
+            <br/>
+            Developed by Ilya Tsindrenko
+        </div>
+        <div class="col d-flex justify-content-center">
+            <a class="mx-2" href="http://facebook.com/"><img src="" th:src="@{/img/fb.svg}" alt="..."></a>
+            <a class="mx-2" href="http://instagram.com/"><img src="" th:src="@{/img/inst.svg}" alt="..."></a>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

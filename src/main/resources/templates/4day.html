@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang=ru
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Schedule</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+
+    <script>
+
+        function changeDropdown() {
+            let challenge_block = document.getElementById('challenge_block');
+            let challenge_video = document.getElementById('challenge_video');
+            let challenge_text = document.getElementById('challenge_text');
+            let challenge_header = document.getElementById('challenge_header');
+            if($(challenge_video).is(":visible")){
+                $(challenge_block).hide();
+                $(challenge_text).hide();
+                $(challenge_video).hide();
+                $(challenge_header).hide();
+            }
+            else{
+                $(challenge_block).show();
+                $(challenge_header).show();
+                $(challenge_text).show();
+                $(challenge_video).show();
+            }
+        }
+
+        function changeDay(elem) {
+            let currentActive = document.getElementsByClassName('page-item active')[0];
+            $(currentActive).removeClass('active');
+            let nextActive = document.getElementById('p' + elem.id);
+            $(nextActive).addClass('active');
+        }
+
+        $(function () {
+            $('[data-toggle="popover"]').popover({
+                html : true,
+                content: function() {
+                    return $('#account_info').html();
+                }
+            });
+        })
+
+    </script>
+</head>
+<body> <!--th:style="'background:url('+ @{/img/bg.jpg} +'); background-attachment: fixed;'"-->
+<nav class="navbar navbar-expand-sm justify-content-lg-between text-white">
+    <a class="navbar-brand" >
+        <img alt="Logo" src="logo.jpg" height="64px" width="64px">
+    </a>
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="/">Start</a>
+        </li>
+        <li class="nav-item">
+            <a id="current" class="nav-link" href="/schedule">Schedule</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/contacts">Contacts</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/leaders">Leaders</a>
+        </li>
+
+    </ul>
+    <div id="account" class="media" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="bottom">
+        <div class="media-body align-self-center text-dark">200 C</div>
+        <img height="64px" width="64px" src="basic.jpg" class="align-self-center ml-3 rounded-circle"  alt="...">
+        <div id="account_info" class="popover" style="display: none;">
+            <div class="row">
+                <div class="col">
+                    <div class="media">
+                        <img height="48px" width="48px" src="basic.jpg" class="mr-3" alt="...">
+                        <div class="media-body text-dark">
+                            <h5>Name</h5>
+                            <p>500 C</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <span class="text-muted">E-mail: </span>cinilya1712@gmail.com
+                </div>
+            </div>
+            <div class="row">
+                <div class="col ">
+                    <span class="text-muted">Location: </span>Norway, Oslo
+                </div>
+            </div>
+            <div class="row">
+                <div class="col ">
+                    <span class="text-muted">Age: </span>19
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<nav>
+    <ul class="pagination pagination-lg justify-content-center">
+        <li class="page-item active" id="p1" onclick="changeDay(this)">
+            <a class="page-link text-dark"
+               style="background: #FAFAFD" id="1" href="#">
+                <b>Day 1.</b>
+                <br/>Opening<br/> ceremony
+            </a>
+        </li>
+        <li class="page-item" id="p2">
+            <a class="page-link text-dark border-top-0 border-bottom-0"
+               style="background: #FAFAFD" id="2" href="#">
+                <b>Day 2 </b>
+                <br/>Connect and<br/>Learn.
+            </a>
+        </li>
+        <li class="page-item" id="p3">
+            <a class="page-link text-dark border-top-0 border-bottom-0"
+               style="background: #FAFAFD" id="3" href="#">
+                <b>Day 3 <span class="badge badge-primary">Now</span></b>
+                <br/>Connect and<br/>Teach.
+            </a>
+        </li>
+        <li class="page-item" id="p4">
+            <a class="page-link text-dark border-top-0 border-bottom-0"
+               style="background: #FAFAFD" id="4" href="#">
+                <b>Day 4</b>
+                <br/>Connect and<br/>Travel.
+            </a>
+        </li>
+        <li class="page-item" id="p5">
+            <a class="page-link text-dark border-right-0 border-top-0 border-bottom-0"
+               style="background: #FAFAFD" id="5" href="#">
+                <b>Day 5</b>
+                <br/>Closing<br/> ceremony.
+            </a>
+        </li>
+    </ul>
+</nav>
+<div th:fragment="loadArea" class="container-fluid d-flex flex-column">
+    <div class="row justify-content-center">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8 mt-5 curves justify-content-center">
+            <div class="media py-5 px-5">
+                <img src="" th:src="@{/img/travel.svg}" class="mr-3 align-self-center" alt="...">
+                <div class="media-body justify-content-center">
+                    <h2 class="main-header">Connect and Travel</h2>
+                    Learn, play and travel with us no matter what!
+                </div>
+                <img onclick="changeDropdown()" src="" th:src="@{/img/challenge.svg}" class="ml-3 align-self-center" alt="...">
+            </div>
+        </div>
+        <div class="col-sm-2"></div>
+    </div>
+    <div id="challenge_block" style="display: none" class="row alert alert-info mt-5 mx-5" role="alert">
+        <div class="col">
+            <h2 style="display: none" id="challenge_header">Today challenge is...</h2>
+            <p style="display: none" id="challenge_text">
+                Welcome on board of “Barents Connection Airlines”! Today we are travelling around Norway and Russia.
+                <br/>
+                Please, take your seats and enjoy the trip!
+                <br/>
+                <br/>
+                1. Choose one of the video tours.
+                <br/>
+                2. Watch it.
+                <br/>
+                3. Compose the letters from the tour in one word.
+                The word consists of 7 letters and is the same for Russia and for Norway.
+                <br/>
+                4. Send us the word to our e-mail:
+                <br/><a href="mailto:barentsconnection@gmail.com">barentsconnection@gmail.com</a>
+                <br/>
+                If you have any questions or problems, contact us by e-mail or through social networks
+            </p>
+        </div>
+    </div>
+<div class="container-fluid d-flex flex-column">
+    <div class="d-flex justify-content-center mt-3" >
+        “Walk” around Russia and Norway without leaving home.
+    </div>
+    <div class="d-flex mt-3 justify-content-center">
+        <div class="d-flex row" id="first_block">
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-4 justify-content-center text-center">
+                <div class="card text-dark bg-light border-0">
+                    <img src="" th:src="@{/img/travel_NO.svg}" class="card-img-top" alt="...">
+                    <div class="card-img-overlay">
+                        <div class="text-white text-wrap text-center">
+                            <h2 class="card-subtitle pt-4" style="font-size: 48px;">Norway</h2>
+                        </div>
+                    </div>
+                    <div class="card-body bg-light justify-content-center" style="font-size: 16px; line-height: 150%;">
+                        <p class="card-text text-wrap">People thirst for traveling! How great it would be to admire Norwegian landscapes and get acquainted with their lifestyle now! What if we told you that it is possible? «Barents Connection» gives you an opportunity to travel around Norway without leaving your home! Residents of Norway prepared fascinating video tours for you to have a vivid impression of their hometowns.</p>
+                        <a th:href="${ConnectAndTravelNorway}"><img src="" th:src="@{/img/travel_YT.svg}" alt="..."></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 justify-content-center text-center">
+                <div class="card text-dark bg-light border-0">
+                    <img src="" th:src="@{/img/travel_RU.svg}" class="card-img-top" alt="...">
+                    <div class="card-img-overlay">
+                        <div class="text-white text-wrap text-center">
+                            <h2 class="card-subtitle pt-4" style="font-size: 48px;">Russia</h2>
+                        </div>
+                    </div>
+                    <div class="card-body bg-light justify-content-center">
+                        <p class="card-text text-wrap" style="font-size: 16px; line-height: 150%;">
+                            If only I could travel to Russia this summer! Enjoy its beauty and get to know Russian rich history and culture! What if we told you that it is possible? «Barents Connection» gives you an opportunity to travel around Russia without leaving your home! Residents of Russia prepared fascinating video tours for you to have a vivid impression of their hometowns.
+                        </p>
+                        <a th:href="${ConnectAndTravelRussia}"><img src="" th:src="@{/img/travel_YT.svg}" alt="..."></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<footer class="footer mt-5">
+    <div class="row">
+        <div class="col">
+            <nav class="navbar navbar-expand-sm justify-content-center mx-5">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" style="color:black;" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color:black;" href="/schedule">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color:black;" href="/contacts">Contacts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color:black;" href="/leaders">Leaders</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <br/>
+    <div class="row pb-5">
+        <div class="col d-flex justify-content-around">
+            <img alt="Logo" src="" th:src="@{/img/logo.jpg}" height="64px" width="64px">
+        </div>
+        <div class="col d-flex justify-content-around text-muted text-center">
+            Designed by Zakhar Gibadulin
+            <br/>
+            Developed by Ilya Tsindrenko
+        </div>
+        <div class="col d-flex justify-content-center">
+            <a class="mx-2" href="http://facebook.com/"><img src="" th:src="@{/img/fb.svg}" alt="..."></a>
+            <a class="mx-2" href="http://instagram.com/"><img src="" th:src="@{/img/inst.svg}" alt="..."></a>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
