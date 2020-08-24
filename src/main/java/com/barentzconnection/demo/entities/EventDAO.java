@@ -8,12 +8,11 @@ import java.time.format.DateTimeFormatter;
 
 @Data
 @Entity
-@Table(name = "event")
+@Table
 public class EventDAO {
     //Name – Category – Description -  Date - Time – Link
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "event_id")
     private Long id;
     private String name;
     @Column(columnDefinition="varchar(1000)")
@@ -53,7 +52,7 @@ public class EventDAO {
 
     public String getTimeAsStringNO(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        LocalTime norwegian = time.minusHours(2);
+        LocalTime norwegian = time.minusHours(1);
         return norwegian.format(formatter) + " NO";
     }
 

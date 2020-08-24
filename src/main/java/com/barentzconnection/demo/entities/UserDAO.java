@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "user")
+@Table
 public class UserDAO {
     //Login – E-mail – Password – Country – Score – Logged in
     @Id
@@ -26,6 +26,8 @@ public class UserDAO {
     private Boolean isLogged;
     private Boolean isAdmin;
     private String avatarPath;
+    private String registrationToken;
+    private Boolean isConfirmed;
 
     public UserDAO(String login, String email, String pass, String country, String city, int age, int score, boolean isAdmin) {
         this.login = login;

@@ -12,7 +12,7 @@ public class DayService {
             case 27: return 3;
             case 28: return 4;
             case 29: return 5;
-            default: return 1;
+            default: return 0;
         }
     }
 

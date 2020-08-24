@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Schedule</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:fragment="speak" id="3" class="carousel-item active">
+    <div class="d-flex justify-content-center mb-3">
+        <h1>Speakers</h1>
+    </div>
+    <div class="row d-flex justify-content-between">
+        <div class="col-sm">
+        </div>
+        <div class="col-sm">
+            <div class="card text-dark border-0">
+                <img src="" th:src="@{/img/urieva.svg}" class="card-img-top" alt="...">
+                <div class="card-body ">
+                    <h5 class="card-title" style="font-size: 18px"><b>Maria Urieva</b></h5>
+                    <p class="card-text text-muted" style="font-size: medium">Troupe actress and director-teacher of the “Children's Theater School” in Murmansk. </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card text-dark border-0">
+                <img src="" th:src="@{/img/zaitseva.svg}" class="card-img-top" alt="...">
+                <div class="card-body ">
+                    <h5 class="card-title" style="font-size: 18px"><b>Victoria Zaitseva</b></h5>
+                    <p class="card-text text-muted" style="font-size: medium">Craftswoman. Victoria works at the Center for Creativity and Social Adaptation, where she conducts handicraft workshops. </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card text-dark border-0">
+                <img src="" th:src="@{/img/merakerli.svg}" class="card-img-top" alt="...">
+                <div class="card-body ">
+                    <h5 class="card-title" style="font-size: 18px"><b>Katja Merakerli</b></h5>
+                    <p class="card-text text-muted" style="font-size: medium">Musician. Katja plays the piano and the guitar, uses “Garageband” app for music production. Works as a music teacher at Meråker school, Norway.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+        </div>
+    </div>
+    <div class="row d-flex justify-content-between">
+        <div class="col-sm">
+        </div>
+        <div class="col-sm">
+            <div class="card text-dark border-0">
+                <img src="" th:src="@{/img/ostanin.svg}" class="card-img-top" alt="..." width="100px">
+                <div class="card-body ">
+                    <h5 class="card-title" style="font-size: 18px"><b>Artyom Ostanin</b></h5>
+                    <p class="card-text text-muted" style="font-size: medium">Dancer. He is a head of the “Dance Lab”, founder of the “Polar Universal".</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card text-dark border-0">
+                <img src="" th:src="@{/img/sapozhnikov.svg}" class="card-img-top" alt="..." >
+                <div class="card-body ">
+                    <h5 class="card-title" style="font-size: 18px"><b>Vladislav Sapozhnikov</b></h5>
+                    <p class="card-text text-muted" style="font-size: medium">Sportsman. Vladislav Sapozhnikov, the world championship bronze medalist in ice swimming and the record holder in the international open water swimming festival “Gulf Stream”. </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm">
+        </div>
+        <div class="col-sm">
+        </div>
+    </div>
+</div>
+</body>
+</html>

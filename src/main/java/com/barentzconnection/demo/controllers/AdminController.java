@@ -2,8 +2,10 @@ package com.barentzconnection.demo.controllers;
 
 import com.barentzconnection.demo.entities.EventDAO;
 import com.barentzconnection.demo.entities.EventDTO;
+import com.barentzconnection.demo.entities.LinkDAO;
 import com.barentzconnection.demo.entities.UserDAO;
 import com.barentzconnection.demo.repositories.IEventRepository;
+import com.barentzconnection.demo.repositories.ILinksRepository;
 import com.barentzconnection.demo.repositories.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -22,11 +24,55 @@ public class AdminController {
     IUserRepository userRepository;
     private final String UPLOADED_FOLDER = System.getProperty("user.dir") + "/src/main/resources/static/img/events/";
     private final String IMG_PATH = "/img/events/";
+    ILinksRepository linksRepository;
 
     @Autowired
-    public AdminController(IEventRepository eventRepository, IUserRepository userRepository){
+    public AdminController(IEventRepository eventRepository, IUserRepository userRepository, ILinksRepository linksRepository){
         this.eventRepository = eventRepository;
         this.userRepository = userRepository;
+        this.linksRepository = linksRepository;
+        preload();
+    }
+
+    private void preload(){
+        if(linksRepository.findByName("OpeningCeremonyZoom").isEmpty()) {
+            linksRepository.saveAndFlush(
+                    new LinkDAO(
+                            "OpeningCeremonyZoom",
+                            "http://zoom.us"
+                    )
+            );
+            linksRepository.saveAndFlush(
+                    new LinkDAO(
+                            "ConnectAndLearnChallenge",
+                            "https://www.youtube.com/embed/dQw4w9WgXcQ"
+                    )
+            );
+            linksRepository.saveAndFlush(
+                    new LinkDAO(
+                            "ConnectAndPlayMeeting",
+                            "youtube.com"
+                    )
+            );
+            linksRepository.saveAndFlush(
+                    new LinkDAO(
+                            "ConnectAndTravelNorway",
+                            "youtube.com"
+                    )
+            );
+            linksRepository.saveAndFlush(
+                    new LinkDAO(
+                            "ConnectAndTravelRussia",
+                            "youtube.com"
+                    )
+            );
+            linksRepository.saveAndFlush(
+                    new LinkDAO(
+                            "ClosingCeremonyZoom",
+                            "zoom.us"
+                    )
+            );
+        }
     }
 
     @GetMapping(value = "/admin")
@@ -62,6 +108,32 @@ public class AdminController {
         }
         else{
             return "redirect:/admin/events";
+        }
+    }
+
+    @GetMapping(value = "/admin/links")
+    public String getLinks(Model model){
+        model.addAttribute("links", linksRepository.findAll());
+        return "adminLinks";
+    }
+
+    @GetMapping(value = "/admin/links/{id}/edit")
+    public String getLinkPage(@PathVariable Long id, Model model){
+        model.addAttribute("link", linksRepository.findById(id).get());
+        return "linkEditPage";
+    }
+
+    @PostMapping(value = "/admin/links/{id}/edit",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public String editLink(@PathVariable Long id, LinkDAO link){
+        LinkDAO editedLink = linksRepository.findById(id).orElse(null);
+        if(editedLink!=null){
+            editedLink.setLink(link.getLink());
+            editedLink.setName(link.getName());
+            linksRepository.saveAndFlush(editedLink);
+            return "redirect:/admin/links";
+        }
+        else {
+            return "redirect:/admin/links";
         }
     }
 
